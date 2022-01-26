@@ -5,9 +5,9 @@ I was working at a company in early 2000, using Mentor Graphics CAD tools which 
 
 stroke_demo.py will let you practice using strokes / gestures using the left mouse button and drawing in the window. wxPython does not currently work with Python 3.10 so you should use 3.9 for now to run the demo.
 
-stroke.py implements an algorithm which translates the path (points) on a virtual grid into a unique identifier. This can be translated to other languages. I purposely changed it some so that it could be implemented in C with only integers and not use any division provided you remove the debug grid code. You could return an integer instead of a string by using a quadrant number. stroke = stroke * 10 + quadrant. You might want to use 64 bit integers and stop if it overflows. 32 bits will store most gestures.
+stroke.py implements an algorithm which translates the path (points) on a virtual grid into a unique identifier. This can be translated to other languages. I purposely changed it some so that it could be implemented in C with only integers and not use any division provided you remove the debug grid code. I recently changed it to return an integer which is faster to execute and use in other languages such as C. You might want to use 64 bit integers and stop if it overflows. 32 bits however will store most gestures.
 
-stroke_decode.py contains a function which will turn the number sequence into some descriptive text. This was added because the numbers are not so descriptive. You can use the 
+stroke_decode.py contains a function which will turn the number sequence into some descriptive text. This was added because the numbers are not so descriptive.
 
 Below are a couple of screenshots from the demo. The path is displayed as a thick black line. White dots show the points captured by the mouse move event handler and a red grid is overlaid to show the extents of the path to understand the decoded value.
 

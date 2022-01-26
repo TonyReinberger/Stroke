@@ -82,11 +82,11 @@ class Stroke:
         if point_y > self.max_y:
             self.max_y = point_y
 
-    def decode_path(self) -> str:
+    def decode_path(self) -> int:
         """ Call this with a mouse up event or mouse leave event.
         """
         if not self.is_stroking:
-            return ""  # Method shouldn't have been called but if it was, return early.
+            return 0  # Method shouldn't have been called but if it was, return early.
         self.is_stroking = False
         centre_x = (self.min_x+self.max_x) >> 1  # Integer divide by 2.
         centre_y = (self.min_y+self.max_y) >> 1  # Integer divide by 2.
@@ -104,7 +104,7 @@ class Stroke:
         scale_factor = 6  # All grid squares are equal size with a value of 6.
         radius_factor = 2  # Should be between 1.4142 and 3 AKA scale_factor/2
         previous_quadrant = 0
-        stroke = ""
+        stroke = 0
         for point_x, point_y in self.path:
             spoint_x = scale_factor*(point_x-centre_x)
             spoint_y = scale_factor*(point_y-centre_y)
@@ -121,7 +121,8 @@ class Stroke:
                     quadrant += 3  # Negative sign for bottom origin systems.
             if quadrant != previous_quadrant:
                 previous_quadrant = quadrant
-                stroke += str(quadrant)
+                # Other languages should make sure the stroke value doesn't overflow.
+                stroke = stroke*10 + quadrant
         self._make_debug_grid((centre_x, centre_y), (width, height), scale_factor, radius_factor)
         return stroke
 
